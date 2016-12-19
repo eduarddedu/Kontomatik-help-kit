@@ -1,28 +1,25 @@
-######################################### 
-#                                       # 
-# POST /v1/command/import-accounts.xml  #
-#                                       #
-#########################################
-
 #!/bin/sh
 
-# put your api key string inside the double quotes:
-APIKEY="" 
+# Call ImportAccountsCommand: https://developer.kontomatik.com/api-doc/#import-accounts-command
+
+
 
 sendPostRequest() {
-    ARGS=" -d apiKey=$APIKEY -d sessionId=$1 -d sessionIdSignature=$2"
-    ARGS="$ARGS https://test.api.kontomatik.com/v1/command/import-accounts.xml -s" 
+    ARGS="-d apiKey=$APIKEY -d sessionId=$1 -d sessionIdSignature=$2 -s"
+    ARGS="$ARGS https://test.api.kontomatik.com/v1/command/import-accounts.xml"
     curl $ARGS
 }
 
 
-if [ $# -lt 2 ]
+if [ -f apiKey ]
 then
-    echo "usage: import-accounts [sessionId] [sessionIdSignature]"
-
-elif [ "$APIKEY" == "" ]
-then 
-    echo "Test api key not set. Please edit this script."
-else 
-    sendPostRequest $1 $2 $APIKEY
+    APIKEY=`cat apikey`
+    if [ $# -eq 2 ]
+    then
+        sendPostRequest $@
+    else
+        echo "Usage: sh import-accounts.sh sessionId sessionIdSignature"
+    fi
+else
+    echo "Test apiKey file not found. Aborting..."
 fi

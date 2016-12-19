@@ -1,26 +1,24 @@
-################################ 
-#                              # 
-# GET  /v1/command/0000.xml    #
-#                              #
-################################
-
 #!/bin/sh
 
-# put your api key string inside the double quotes:
-APIKEY="" 
+# Poll the command status: https://developer.kontomatik.com/api-doc/#command-status
+
+
 
 sendGetRequest() {
-    ARGS="-X GET -d apiKey=$APIKEY -d sessionId=$1 -d sessionIdSignature=$2" 
-    ARGS="$ARGS https://test.api.kontomatik.com/v1/command/$3.xml" 
+    ARGS="-G -d apiKey=$APIKEY -d sessionId=$1 -d sessionIdSignature=$2 -s"
+    ARGS="$ARGS https://test.api.kontomatik.com/v1/command/$3.xml"
     curl $ARGS
 }
 
-if [ $# -lt 3 ]
+if [ -f apiKey ]
 then
-    echo 'usage: poll [sessionId] [sessionIdSignature] [commandId]'
-elif [ "$APIKEY" == "" ] 
-then 
-    echo 'Test api key not set. Please edit this script'
+    APIKEY=`cat apikey`
+    if [ $# -eq 3 ]
+    then
+        sendGetRequest $@
+    else
+        echo "Usage: sh poll.sh sessionId sessionIdSignature commandId"
+    fi
 else
-    sendGetRequest $1 $2 $3 $APIKEY
+    echo "Test apiKey file not found. Aborting..."
 fi

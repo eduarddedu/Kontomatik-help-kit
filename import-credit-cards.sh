@@ -1,12 +1,12 @@
 #!/bin/sh
 
-# Call ImportOwnersCommand: https://developer.kontomatik.com/api-doc/#import-owners-command
+# Call ImportCreditCardsCommand: https://developer.kontomatik.com/api-doc/#import-credit-cards-command
 
 
 
 sendPostRequest() {
     ARGS="-d apiKey=$APIKEY -d sessionId=$1 -d sessionIdSignature=$2 -s"
-    ARGS="$ARGS https://test.api.kontomatik.com/v1/command/import-owners.xml"
+    ARGS="$ARGS https://test.api.kontomatik.com/v1/command/import-credit-cards.xml"
     curl $ARGS
 }
 
@@ -18,7 +18,7 @@ then
     then
         sendPostRequest $@
     else
-        echo "Usage: sh import-owners.sh sessionId sessionIdSignature"
+        echo "Usage: sh import-credit-cards.sh sessionId sessionIdSignature"
     fi
 else
     echo "Test apiKey file not found. Aborting..."
