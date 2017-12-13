@@ -14,7 +14,7 @@ sendPostRequest() {
 if [ -f apiKey ]
 then
     APIKEY=`cat apikey`
-    if [ $# -eq 2 ]
+    if [ $# -eq 3 ]
     then
         sendPostRequest $@
     else
