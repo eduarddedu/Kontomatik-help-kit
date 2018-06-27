@@ -4,7 +4,7 @@
 
 
 
-sendPostRequest() {
+sendGetRequest() {
     ARGS="-X GET -d apiKey=$APIKEY -d country=pl -d favicons=false"
     ARGS="$ARGS https://test.api.kontomatik.com/v1/catalog.xml -s"
     curl $ARGS
@@ -13,7 +13,7 @@ sendPostRequest() {
 if [ -f apiKey ]
 then
     APIKEY=`cat apikey`
-    sendPostRequest $@
+    sendGetRequest $@
 else
     echo "Test apiKey file not found. Aborting..."
 fi
