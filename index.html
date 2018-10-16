@@ -2,8 +2,13 @@
 <html>
   <head>
     <title>Widget</title>
-    <script src="https://signin.kontomatik.com/assets/signin-widget.js">
-    </script>
+    <script src="https://signin.kontomatik.com/assets/signin-widget.js"></script>
+    <style>
+        #kontomatik {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
   </head>
   <body>
     <div id="kontomatik"></div>
@@ -11,8 +16,6 @@
       embedKontomatik({
         client: '', // add your test client id
         divId: 'kontomatik',
-        ownerExternalId: 00000000,
-        showDefaultTarget: false,
         onSuccess: function(target, sessionId, sessionIdSignature, options) {
           document.getElementById('kontomatik').innerHTML = sessionId + " " + sessionIdSignature;
         },
