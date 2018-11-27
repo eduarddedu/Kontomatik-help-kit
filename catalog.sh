@@ -5,7 +5,7 @@
 
 
 sendGetRequest() {
-    ARGS="-X GET -d apiKey=$APIKEY -d country=pl -d favicons=false"
+    ARGS="-X GET -d apiKey=$APIKEY -d country=all -d favicons=false"
     ARGS="$ARGS https://test.api.kontomatik.com/v1/command-catalog.xml -s"
     curl $ARGS
 }
